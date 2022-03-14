@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 urlpatterns = [
-    path('',views.index,name='index'),
+    path('index',views.index,name='index'),
     path('profile',views.profile,name='profile'),
     path('calender',views.calender,name='calender'),
     path('chartist',views.chartist,name='chartist'),
@@ -28,7 +28,8 @@ urlpatterns = [
     path('error503',views.error503,name='error503'),    
     path('lockscreen',views.lockscreen,name='lockscreen'),    
     path('login',views.login,name='login'),
-    path('register',views.register,name='register'),    
+    path('',views.register,name='register'), 
+    path('otp',views.otp,name='otp'),    
     path('bootstrap',views.bootstrap,name='bootstrap'),
  
     

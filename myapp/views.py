@@ -1,12 +1,14 @@
+from atexit import register
+from cgitb import html
 import email
 from tempfile import tempdir
-from django.shortcuts import render
+from django.shortcuts import redirect,render
 from .models import *
 from django.conf import settings
 from django.core.mail import send_mail
 from random import random, randrange
 
-from myapp.models import User
+# from myapp.models import User
 
 # Create your views here.
 def index(request):
@@ -62,11 +64,24 @@ def error503(request):
 def lockscreen(request):
     return render(request,'page-lock-screen.html')
 def login(request):
+    try:
+        User.objects.get(email=request.session['email'])
+        return redirect('index')
+    except:
+        if request.method == 'POST':
+                try:
+                    uid = User.objects.get(email=request.POST['email'])
+                    if uid.password == request.post['password']:
+                        request.session= uid.email
+                        return redirect('index')
+                    return render(request,'page-login.html',{'msg': 'incrrect password'})
+                except:
+                    return render(request,'register.html',{'msg' : 'email is not register plz register your email'})
     return render(request,'page-login.html')
 def register(request):
     if request.method == 'POST':
         try:
-            Register.objects.get(email=request.POST['email'])
+            User.objects.get(email=request.POST['email'])
             return render(request,'page-register.html',{'msg': 'ENTER EMAIL IS ALREADY REGISTER'})
         except:
             if request.POST['password'] == request.POST['cpassword']:
@@ -84,13 +99,14 @@ def register(request):
                 recipient_list = [request.POST['email'], ]
                 send_mail( subject, message, email_from, recipient_list )
                 return render(request,'otp.html',{'otp' : otp})
-            return render(request,'page-register.html',{'msg':'Both passwords are not matched'})              
+            return render(request,'page-register.html',{'msg':'Both passwords are not matched'})   
     return render(request,'page-register.html')
 def otp(request):
-    if request.method == 'post':
+
+    if request.method == 'POST':
         if request.POST['uotp'] == request.POST['otp']:
             global temp
-            Register.objects.create(
+            User.objects.create(
                 name = temp['name'],
                 email =temp['email'],
                 password =temp['password']
@@ -98,13 +114,7 @@ def otp(request):
 
             msg = "Account is Created"
         return render(request,'login.html',{'msg':msg})
-        return render(request,'otp.html',{'otp':request.POST['otp'],'msg':'incorrect OTP'})                
-
-                
-            
-
-
-    return render(request,'otp.html')
+    return render(request,'otp.html',{'otp':request.POST['otp'],'msg':'incorrect OTP'})
 def bootstrap(request):
     return render(request,'table-bootstrap-basic.html')
 

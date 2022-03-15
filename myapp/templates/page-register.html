@@ -26,11 +26,11 @@
                                     <!-- {% if msg %}
                                     <p class="text-lead text-white">{{msg}}</p>
                                    {% endif %} -->
+                                   <p>{{msg}}</p>
                                     <h4 class="text-center mb-4">Sign up your account</h4>
-                                    <form role="form" action="{% url 'register' %}" method="POST">
-                                        {% csrf_token %}
-                                   
-                                        <div class="form-group">
+                                  <form role="form" action="{% url 'register' %}" method="POST">
+                                    {% csrf_token %}
+                                      <div class="form-group">
                                             <label><strong>Username</strong></label>
                                             <input type="text" class="form-control" placeholder="username" name="name">
                                         </div>
@@ -51,7 +51,7 @@
                                         </div>
                                     </form>
                                     <div class="new-account mt-3">
-                                        <p>Already have an account? <a class="text-primary" href="page-login.html">Sign in</a></p>
+                                        <p>Already have an account? <a class="text-primary" href="{% url 'login' %}">Sign in</a></p>
                                     </div>
                                 </div>
                             </div>

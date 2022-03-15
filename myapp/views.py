@@ -12,7 +12,8 @@ from random import random, randrange
 
 # Create your views here.
 def index(request):
-    return render(request,'index.html')
+    uid = User.objects.get(email=request.session['email'])
+    return render(request,'index.html',{'uid':uid})
 def profile(request):
     return render(request,'app-profile.html')
 def calender(request):

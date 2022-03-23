@@ -29,7 +29,7 @@ def aindex(request):
 #                 if uid.password == request.POST['password']:
 #                     request.session['email'] = uid.email
 #                     return redirect('aindex')
-#                 return render(request,'page-login.html',{'msg': 'incrrect password'})
+#                 return render(request,'page-login.html',{'msg' : 'incrrect password'})
 #             except:
 #                 return render(request,'page-register.html',{'msg' : 'email is not register plz register your email'})
 #         return render(request,'page-login.html')
@@ -42,35 +42,37 @@ def login(request):
             try:
                 uid = User.objects.get(email=request.POST['email'])
                 if uid.password == request.POST['password']:
-                    uid.session['email'] == request.POST['email']
+                    request.session['email'] == uid.POST['email']
                     return redirect('aindex')
                 return render(request,'page-login.html',{'msg' : 'incrrect password'})
             except:
                  return render(request,'page-register.html',{'msg' : 'email is not register plz register your email'})  
         return render(request,'page-login.html')
+        
 def register(request):
-    if request.method == ['POST']:
+    if request.method == 'POST':
         try:
             User.objects.get(email=request.POST['email'])
             return render(request,'page-register.html',{'msg':'email is alrady register'})
         except:
             if request.POST['password'] == request.POST['cpassword']:
                 global temp
+
                 temp = {
                     'name' : request.POST['name'],
                     'email' : request.POST['email'],
                     'password' : request.POST['password'],
-                    'city' : request.POST['city'],
+                    'address' : request.POST['address'],
                     'doj' : request.POST['doj'],
                     'pic' : request.POST['pic'],
                 }
-                otp = randrange(1111,9999)
+                otp = randrange(1000,9999)
                 subject = 'welcome to Lab App'
                 message = f'Your OTP is {otp}. please enter correctly'
                 email_from = settings.EMAIL_HOST_USER
                 recipient_list = [request.POST['email'], ]
-                send_mail( subject, message, email_from, recipient_list )
-                return render(request,'otp.html',{'otp',otp})
+                send_mail(subject, message, email_from, recipient_list )
+                return render(request,'otp.html',{'otp':otp})  
             return render(request,'page-register.html',{'msg':'both password is not same '})
     return render(request,'page-register.html')
 def otp(request):

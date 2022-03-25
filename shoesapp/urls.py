@@ -11,4 +11,6 @@ urlpatterns = [
     path('order',views.order,name='order'),
     path('product',views.product,name='product'),
     path('women',views.women,name='women'),
+    path('clogin',views.clogin,name='clogin'),
+
 ]

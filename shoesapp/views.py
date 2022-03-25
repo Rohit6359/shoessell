@@ -21,3 +21,5 @@ def cart(request):
     return render(request,'cart.html')
 def add(request):
     return render(request,'add-to-wishlist.html')
+def clogin(request):
+    return render(request,'clogin.html')

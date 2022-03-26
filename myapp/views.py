@@ -10,7 +10,7 @@ from django.shortcuts import redirect,render
 from .models import *
 from django.conf import settings
 from django.core.mail import send_mail
-from random import random, randrange
+from random import  randrange
 
 # from myapp.models import User
 
@@ -18,21 +18,7 @@ from random import random, randrange
 def aindex(request):
     uid = User.objects.get(email=request.session['email'])
     return render(request,'aindex.html',{'uid':uid})
-# def login(request):
-#     try:
-#         User.objects.get(email=request.session['email'])
-#         return redirect('aindex')
-#     except:
-#         if request.method == 'POST':
-#             try:
-#                 uid = User.objects.get(email=request.POST['email'])
-#                 if uid.password == request.POST['password']:
-#                     request.session['email'] = uid.email
-#                     return redirect('aindex')
-#                 return render(request,'page-login.html',{'msg' : 'incrrect password'})
-#             except:
-#                 return render(request,'page-register.html',{'msg' : 'email is not register plz register your email'})
-#         return render(request,'page-login.html')
+
 def login(request):
     try:
         User.objects.get(email=request.session['email'])
@@ -42,13 +28,13 @@ def login(request):
             try:
                 uid = User.objects.get(email=request.POST['email'])
                 if uid.password == request.POST['password']:
-                    request.session['email'] == uid.POST['email']
+                    request.session['email'] = uid.email
                     return redirect('aindex')
                 return render(request,'page-login.html',{'msg' : 'incrrect password'})
             except:
-                 return render(request,'page-register.html',{'msg' : 'email is not register plz register your email'})  
+                return render(request,'page-register.html',{'msg' : 'email is not register plz register your email'})
         return render(request,'page-login.html')
-        
+
 def register(request):
     if request.method == 'POST':
         try:
@@ -67,7 +53,7 @@ def register(request):
                     'pic' : request.POST['pic'],
                 }
                 otp = randrange(1000,9999)
-                subject = 'welcome to Lab App'
+                subject = 'welcome to scarpa shoes'
                 message = f'Your OTP is {otp}. please enter correctly'
                 email_from = settings.EMAIL_HOST_USER
                 recipient_list = [request.POST['email'], ]
@@ -81,26 +67,26 @@ def otp(request):
     #     if request.POST['uotp'] == request.POST['otp']:
     #         global temp
     #         User.objects.create(
-    #             name = temp['name'],
-    #             email =temp['email'],
+    #              name = temp['name'],
+    #              email =temp['email'],
     #             password =temp['password']
     #         )
     #         msg = "Account is Created"
     #         return render(request,'page-login.html',{'msg':msg})
     #     return render(request,'otp.html',{'otp':request.POST['otp'],'msg':'incorrect OTP'})
     if request.method == 'POST':
-        if request.POST['otp'] == request.POST['uotp']:
+        if request.POST['uotp'] == request.POST['otp']:
             global temp
             User.objects.create(
                 name = temp['name'],
                 email = temp['email'],
                 password = temp['password'],
-                city = temp['city'],
+                address = temp['address'],
                 doj = temp['doj'],
                 pic = temp['pic']
             )
-            return render(request,'otp.html',{'msg' : 'you are sucssesfully register'})
-        return render(request,'otp.html',{'msg':'incorrect otp'})
+            return render(request,'page-login.html',{'msg' : 'you are sucssesfully register'})
+        return render(request,'otp.html',{'otp':request.POST['otp'],'msg':'incorrect otp'})
 def logout(request):
     del request.session['email']
     return redirect('login')

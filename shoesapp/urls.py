@@ -12,5 +12,7 @@ urlpatterns = [
     path('product',views.product,name='product'),
     path('women',views.women,name='women'),
     path('clogin',views.clogin,name='clogin'),
+    path('cregister',views.cregister,name='cregister'),
+
 
 ]

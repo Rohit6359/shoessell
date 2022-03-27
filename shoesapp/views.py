@@ -23,3 +23,5 @@ def add(request):
     return render(request,'add-to-wishlist.html')
 def clogin(request):
     return render(request,'clogin.html')
+def cregister(request):
+    return render(request,'cregister.html')

@@ -23,22 +23,21 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <p><b><i><u> {{msg}} </u></i></b></p>
-                                    <h4 class="text-center mb-4">Forgot Password</h4>
-                                    <form role="form" action="{% url 'fpassword' %}" method="POST">
+                                        {{msg}}
+                                    <h4 class="text-center mb-4"><b>Enter your Password</b></h4>
+                                    <form role="form" action="{% url 'fotp' %}" method="POST">
                                         {% csrf_token %}
                                         <div class="form-group">
-                                            <label><strong>Email</strong></label>
-                                            <input type="email" class="form-control" placeholder="email" name='email'>
+                                            <input type="text" class="form-control" placeholder="Password" name="fpassword">
                                         </div>
-                                        
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-primary btn-block">SEND OTP</button>
+                                        <input type="hidden" value="{{otp}}" name="otp">
+                                        <input type="hidden" value="{{Email}}" name="Email">
+
+                                        <div class="text-center mt-4">
+                                            <button type="submit" class="btn btn-primary btn-block">submit</button>
+
                                         </div>
                                     </form>
-                                    <div class="new-account mt-3">
-                                        <p>Don't get otp resend otp  <a class="text-primary" href="{% url 'fpassword' %}">resend</a></p>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -48,15 +47,13 @@
         </div>
     </div>
 
-
     <!--**********************************
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    <script src="./vendor/global/global.min.js"></script>
-    <script src="./js/quixnav-init.js"></script>
-    <script src="./js/custom.min.js"></script>
-
+    <script src="{% static 'vendor/global/global.min.js' %}"></script>
+    <script src="{% static 'js/quixnav-init.js' %}"></script>
+    <!--endRemoveIf(production)-->
 </body>
 
 </html>

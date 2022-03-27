@@ -31,7 +31,8 @@ urlpatterns = [
     path('register',views.register,name='register'), 
     path('logout',views.logout,name='logout'), 
     path('otp',views.otp,name='otp'),
-    path('fpassword',views.fpassword,name='fpassword'),    
+    path('fpassword',views.fpassword,name='fpassword'),   
+    path('fotp',views.fotp,name='fotp'),   
     path('bootstrap',views.bootstrap,name='bootstrap'),
  
     

@@ -48,9 +48,7 @@ def register(request):
                     'name' : request.POST['name'],
                     'email' : request.POST['email'],
                     'password' : request.POST['password'],
-                    'address' : request.POST['address'],
-                    'doj' : request.POST['doj'],
-                    'pic' : request.POST['pic'],
+                    'address' : request.POST['address']
                 }
                 otp = randrange(1000,9999)
                 subject = 'welcome to scarpa shoes'
@@ -62,18 +60,6 @@ def register(request):
             return render(request,'page-register.html',{'msg':'both password is not same '})
     return render(request,'page-register.html')
 def otp(request):
-
-    # if request.method == 'POST':
-    #     if request.POST['uotp'] == request.POST['otp']:
-    #         global temp
-    #         User.objects.create(
-    #              name = temp['name'],
-    #              email =temp['email'],
-    #             password =temp['password']
-    #         )
-    #         msg = "Account is Created"
-    #         return render(request,'page-login.html',{'msg':msg})
-    #     return render(request,'otp.html',{'otp':request.POST['otp'],'msg':'incorrect OTP'})
     if request.method == 'POST':
         if request.POST['uotp'] == request.POST['otp']:
             global temp
@@ -81,9 +67,8 @@ def otp(request):
                 name = temp['name'],
                 email = temp['email'],
                 password = temp['password'],
-                address = temp['address'],
-                doj = temp['doj'],
-                pic = temp['pic']
+                address = temp['address']
+
             )
             return render(request,'page-login.html',{'msg' : 'you are sucssesfully register'})
         return render(request,'otp.html',{'otp':request.POST['otp'],'msg':'incorrect otp'})
@@ -92,18 +77,34 @@ def logout(request):
     return redirect('login')
 def fpassword(request):
     if request.method == 'POST':
-        try:
-             User.objects.get(email=request.POST['email'])
-             otp = randrange(1000,9999)
-             subject = 'welcome to Lab App'
-             message = f'Your OTP is {otp}. please enter correctly'
-             email_from = settings.EMAIL_HOST_USER
-             recipient_list = [request.POST['email'], ]
-             send_mail( subject, message, email_from, recipient_list )
-             return render(request,'fotp.html',{'otp' : otp})
-        except:
-            return render(request,'forgot_password.html',{'msg':'email is not register'})
+        uid =User.objects.get(email=request.POST['email'])
+        if uid.email == request.POST['email']:
+            otp = randrange(1000,9999)
+            subject = 'welcome to Lab App'
+            message = f'Your OTP is {otp}. please enter correctly'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [request.POST['email'], ]
+            send_mail( subject, message, email_from, recipient_list )
+            return render(request,'fotp.html',{'otp' : otp,'Email' : request.POST['email']})
+        return render(request,'forgot_password.html',{'msg':'email is not register'})
     return render(request,'forgot_password.html')
+def fotp(request):
+    try:
+        uid = User.objects.get(email=request.session['email'])
+        return redirect('aindex')
+    except:
+        if request.method == 'POST':
+            try:
+                uid = User.objects.get(email=request.POST['email'])
+                if request.POST['fpassword'] == request.POST['otp']:
+                    uid.password = request.POST['otp']
+                    uid.save()
+                    request.session['email']= uid.email
+                    return redirect('aindex')
+                return render(request,'fotp.html',{'msg' : 'password is incorrect'})
+            except:
+                return render(request,'fotp.html',{'msg' : 'email is not register---'})
+        return render(request,'fotp.html')
 def bootstrap(request):
     return render(request,'table-bootstrap-basic.html')
 def profile(request):

@@ -30,7 +30,8 @@ urlpatterns = [
     path('',views.login,name='login'),
     path('register',views.register,name='register'), 
     path('logout',views.logout,name='logout'), 
-    path('otp',views.otp,name='otp'),    
+    path('otp',views.otp,name='otp'),
+    path('fpassword',views.fpassword,name='fpassword'),    
     path('bootstrap',views.bootstrap,name='bootstrap'),
  
     

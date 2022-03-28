@@ -77,7 +77,7 @@ def logout(request):
     return redirect('login')
 def fpassword(request):
     if request.method == 'POST':
-        uid =User.objects.get(email=request.POST['email'])
+        uid=User.objects.get(email=request.POST['email'])
         if uid.email == request.POST['email']:
             otp = randrange(1000,9999)
             subject = 'welcome to Lab App'
@@ -85,7 +85,7 @@ def fpassword(request):
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [request.POST['email'], ]
             send_mail( subject, message, email_from, recipient_list )
-            return render(request,'fotp.html',{'otp' : otp,'Email' : request.POST['email']})
+            return render(request,'fotp.html',{'otp' : otp,'Email':request.POST['email']})
         return render(request,'forgot_password.html',{'msg':'email is not register'})
     return render(request,'forgot_password.html')
 def fotp(request):
@@ -96,12 +96,12 @@ def fotp(request):
         if request.method == 'POST':
             try:
                 uid = User.objects.get(email=request.POST['email'])
-                if request.POST['fpassword'] == request.POST['otp']:
+                if request.POST['password'] == request.POST['otp']:
                     uid.password = request.POST['otp']
                     uid.save()
                     request.session['email']= uid.email
                     return redirect('aindex')
-                return render(request,'fotp.html',{'msg' : 'password is incorrect'})
+                return render(request,'fotp.html',{'msg' : 'password is incorrect','uid' : uid})
             except:
                 return render(request,'fotp.html',{'msg' : 'email is not register---'})
         return render(request,'fotp.html')

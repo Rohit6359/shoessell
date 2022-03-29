@@ -105,10 +105,29 @@ def fotp(request):
             except:
                 return render(request,'fotp.html',{'msg' : 'email is not register---'})
         return render(request,'fotp.html')
+def profile(request):
+    uid =User.objects.get(email=request.session['email'])
+    if request.method == 'POST':
+        uid.name =request.POST['name']
+        uid.email =request.POST['email']
+        uid.address =request.POST['address']
+        # uid.doj =request.POST['doj'],
+        if 'pic' in request.FILES:
+            uid.pic = request.FILES['pic']
+        uid.save()
+        return render(request,'app-profile.html',{'uid':uid,'msg': 'profile updated'})
+    return render(request,'app-profile.html',{'uid':uid})
+def chpass(request):
+    uid=User.objects.get(email=request.session['email'])
+    if request.method == 'POST':
+        if uid.password == request.POST['opassword']:
+            uid.password =request.POST['npassword']
+            uid.save()
+            return render(request,'chang-password.html',{'msg' : 'PASSWORD IS UPDATED'})
+        return render(request,'chang-password.html',{'msg' : 'password is incorrect'})
+    return render(request,'chang-password.html')
 def bootstrap(request):
     return render(request,'table-bootstrap-basic.html')
-def profile(request):
-    return render(request,'app-profile.html')
 def calender(request):
     return render(request,'app-calender.html')
 def chartist(request):

@@ -34,6 +34,8 @@ urlpatterns = [
     path('fpassword',views.fpassword,name='fpassword'),   
     path('fotp',views.fotp,name='fotp'),   
     path('bootstrap',views.bootstrap,name='bootstrap'),
+    path('chpass',views.chpass,name='chpass'),
+    
  
     
     

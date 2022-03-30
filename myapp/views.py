@@ -4,7 +4,7 @@ from cgitb import html
 import email
 from glob import glob
 from tempfile import tempdir
-from unicodedata import name
+from unicodedata import category, name
 from urllib import request
 from django.shortcuts import redirect,render
 from .models import *
@@ -126,6 +126,23 @@ def chpass(request):
             return render(request,'chang-password.html',{'msg' : 'PASSWORD IS UPDATED'})
         return render(request,'chang-password.html',{'msg' : 'password is incorrect'})
     return render(request,'chang-password.html')
+def add_products(request):
+    uid =User.objects.get(email=request.session['email'])
+    categories = Category.objects.all()
+    if request.method == 'POST':
+        cate = Category.objects.get(id=request.POST['pcategory'])
+        Product.objects.create(
+            seller = uid,
+            name = request.POST['pname'],
+            brand = request.POST['pbrand'],
+            size = request.POST['psize'],
+            price = request.POST['pprice'],
+            des = request.POST['pdes'],
+            category = cate
+        )
+        msg = 'Service Added'
+        return render(request,'add-products.html',{'uid':uid,'categories':categories,'msg':msg})
+    return render(request,'add-products.html',{'uid':uid,'categories':categories}) 
 def bootstrap(request):
     return render(request,'table-bootstrap-basic.html')
 def calender(request):

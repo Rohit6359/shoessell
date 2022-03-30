@@ -17,8 +17,8 @@
             <div class="card-header">
                 <p>HELLO,{{uid.name}}</p>
 
-                <p>{{msg}}</p>
-                <h4 class="card-title">Profie page</h4>
+                <p>{{msg}}</p></div><br>
+                <h4 class="card-title" style="text-align: center;"><b>Profie page</b></h4>
                 <form role="form" action="{% url 'profile' %}" method="POST">
                     {% csrf_token %}
             </div>

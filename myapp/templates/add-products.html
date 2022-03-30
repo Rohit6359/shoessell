@@ -1,0 +1,69 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block head %}
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+    
+            <div class="card">
+    <div class="card-header">
+        {{msg}}
+        <h4  class="card-title">Add Product</h4>
+    </div>
+    <div class="card-body">
+        <div class="basic-form">
+            <form action="{% url 'add-products' %}" method="POST" ">
+                {% csrf_token %}
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Product Name</label>
+                        <input type="text" class="form-control" placeholder="Product name" name="pname">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Brand Name</label>
+                        <input type="text" class="form-control" placeholder="Brand Name" name="pbrand">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Size</label>
+                        <input type="number" class="form-control" placeholder="size" name="psize">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Price</label>
+                        <input type="int" class="form-control" placeholder="price" name="pprice">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Category</label>
+                        <select name="pcategory" id="" class="form-control">
+                            <option value="">--</option>
+                            {% for one in categories %}
+                            <option style="color:aquamarine; " value="{{one.id}}">{{one.category}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Discription</label>
+                        <textarea name="des" class="form-control" id="" cols="30" rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label">
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+  
+</div>
+        </div>
+</div>
+</div>
+ {% endblock %}  
+

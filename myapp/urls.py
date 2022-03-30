@@ -33,8 +33,10 @@ urlpatterns = [
     path('otp',views.otp,name='otp'),
     path('fpassword',views.fpassword,name='fpassword'),   
     path('fotp',views.fotp,name='fotp'),   
-    path('bootstrap',views.bootstrap,name='bootstrap'),
     path('chpass',views.chpass,name='chpass'),
+    path('add-products',views.add_products,name='add-products'),
+    path('bootstrap',views.bootstrap,name='bootstrap'),
+
     
  
     

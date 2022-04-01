@@ -22,10 +22,10 @@ class User(models.Model):
 
 
 class Category(models.Model):
-    catagory = models.CharField(max_length=25)
+    category = models.CharField(max_length=25)
 
     def __str__(self):
-        return self.catagory
+        return self.category
 
 class Product(models.Model):
     seller = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -36,6 +36,7 @@ class Product(models.Model):
     des = models.TextField()
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
     available = models.BooleanField(default=True)
+    pic = models.FileField(upload_to='shoesimg',default='avtar.png',null=True)
 
     def __str__(self):
         return self.seller.name + ' >>>> ' + self.name

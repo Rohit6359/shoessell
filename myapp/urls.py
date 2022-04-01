@@ -35,7 +35,9 @@ urlpatterns = [
     path('fotp',views.fotp,name='fotp'),   
     path('chpass',views.chpass,name='chpass'),
     path('add-products',views.add_products,name='add-products'),
+    path('view-my-products',views.view_my_products,name='view-my-products'),
     path('bootstrap',views.bootstrap,name='bootstrap'),
+
 
     
  

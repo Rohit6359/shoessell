@@ -143,6 +143,10 @@ def add_products(request):
         msg = 'Service Added'
         return render(request,'add-products.html',{'uid':uid,'categories':categories,'msg':msg})
     return render(request,'add-products.html',{'uid':uid,'categories':categories}) 
+
+def view_my_products(request):
+    return render(request,'view-my-products.html')
+
 def bootstrap(request):
     return render(request,'table-bootstrap-basic.html')
 def calender(request):

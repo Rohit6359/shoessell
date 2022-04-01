@@ -1,0 +1,87 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block head %}
+
+
+<div class="content-body">
+    <!-- row -->
+        <div class="row">
+<div class="col-lg-3 col-sm-6">
+<div class="card">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                
+            </div>
+           <h2>My Products</h2>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Product Name</th>
+                                        <th> Brand </th>
+                                        <th>Size</th>
+                                        <th>Price</th>
+                                        <th>Available</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="round-img">
+                                                <a href=""><img width="35" src="./images/avatar/1.png" alt=""></a>
+                                            </div>
+                                        </td>
+                                        <td>shellepre</td>
+                                        <td><span>peragon</span></td>
+                                        <td><span>6</span></td>
+                                        <td><span>260</span></td>
+                                        <td><span class="badge badge-success">Done</span></td>
+                                        <td style="margin-left:10px;">
+                                            <div class="dropdown">
+                                            <a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
+                                                <a class="dropdown-item" href=""><i class="fa fa-eye"></i> View Service</a>
+                                                <a class="dropdown-item" href=""><i class="fa fa-pen"></i> Edit Service</a>
+                                                <a class="dropdown-item" href=""><i class="fa fa-trash"></i> Delete</a>
+                                                <!-- {% if service.active %} -->
+                                                <a class="dropdown-item" href=""><i class=""></i> Disable Service</a>
+                                                <!-- {% else %} -->
+                                                <a class="dropdown-item" href=""><i class=""></i> Enable Service</a>
+                                                <!-- {% endif %} -->
+                                            </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--**********************************
+    Content body end
+***********************************-->
+
+
+<!--**********************************
+    Footer start
+***********************************-->
+
+<br>
+<br>
+<br>
+
+{% endblock %}  

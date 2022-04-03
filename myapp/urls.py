@@ -40,6 +40,7 @@ urlpatterns = [
     path('disable-product/<int:pk>',views.disable_product,name='disable-product'),
     path('enable-product/<int:pk>',views.enable_product,name='enable-product'),
     path('view-one-product/<int:pk>',views.view_one_product,name='view-one-product'),
+    path('edit-my-product/<int:pk>',views.edit_my_product,name='edit-my-product'),
 
 
 

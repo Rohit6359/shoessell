@@ -8,7 +8,9 @@
             <div class="card">
     <div class="card-header">
         {{msg}}
-        <h4  class="card-title">View Product : {{product.name}}</h4>
+        <h4  class="card-title">View Product : {{product.name}} </h4>
+        <form action="{% url 'edit-my-product' product.id %}" method="POST">
+            {% csrf_token %}
     </div>
     <div class="card-body">
         <div class="basic-form">
@@ -16,37 +18,44 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>Product Name</label>
-                        <input type="text" value="{{product.name}}" disabled class="form-control" placeholder="Product name" name="pname">
+                        <input type="text" name="pname"  value="{{product.name}}"  class="form-control" placeholder="Product name" name="pname">
                     </div>
                     <div class="form-group col-md-6">
                         <label>Brand Name</label>
-                        <input type="text" value="{{product.brand}}" disabled class="form-control" placeholder="Brand Name" name="pbrand">
+                        <input type="text" name="pbrand" value="{{product.brand}}"  class="form-control" placeholder="Brand Name" name="pbrand">
                     </div>
                     <div class="form-group col-md-6">
                         <label>Size</label>
-                        <input type="number" value="{{product.size}}" disabled class="form-control" placeholder="size" name="psize">
+                        <input type="number" name="psize" value="{{product.size}}"  class="form-control" placeholder="size" name="psize">
                     </div>
                     <div class="form-group col-md-6">
                         <label>Price</label>
-                        <input type="int" value="{{product.price}}" disabled class="form-control" placeholder="price" name="pprice">
+                        <input type="int" name="pprice" value="{{product.price}}"  class="form-control" placeholder="price" name="pprice">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>Category</label>
-                        <select name="pcategory" disabled id="" class="form-control">
-                            <option value="">{{product.category.category}}</option>
+                        <select name="pcategory"  id="" class="form-control">
+                            {% for c in cate  %}
+                            {% if c == product.category %}
+                            <option value="{{c.id}}" selected>{{c.category}}</option>
+                            {% else %}
+                            <option value="{{c.id}}">{{c.category}}</option>
+                            {% endif %}
+                            {% endfor %}
+
                         </select>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Discription</label>
-                        <textarea name="pdes" class="form-control" id="" cols="30" rows="10" disabled >{{product.des}}</textarea>
+                        <textarea name="pdes" class="form-control" id="" cols="30" rows="10"  >{{product.des}}</textarea>
                     </div>
                 </div>
                 
                 <div style="text-align: center;" class="form-group col-md-6">
                     <label style="text-align: center;">Product Image</label>
-                    <input  type="file" value="{{product.pic}}" disabled class="form-control" placeholder="price" name="ppic">
+                    <input  type="file" name="ppic" value="{{product.pic}}"  class="form-control" placeholder="price" name="ppic">
                 </div>          
                 <div class="form-group">
                     <div class="form-check">
@@ -55,11 +64,18 @@
                         </label>
                     </div>
                     <br>
-                <a href="{% url 'view-my-products' %}" button   class="btn btn-primary"  style="width: 100%;"> Go Back</button></a>
+                <button   class="btn btn-primary"  style="width: 100%;"> Edit Product </button></a>
 
                 </div>
+                <a href="{% url 'view-my-products'%}" button   class="btn btn-primary"  style="width: 100%;"> Go Back</button></a>
+
                 </div>
             </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
         </div>
     </div>
   

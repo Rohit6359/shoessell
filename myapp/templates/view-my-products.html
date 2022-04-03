@@ -67,7 +67,7 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
                                                 <a class="dropdown-item" href="{% url 'view-one-product' product.id %}"><i class="fa fa-eye"></i> View Service</a>
-                                                <a class="dropdown-item" href=""><i class="fa fa-pen"></i> Edit Service</a>
+                                                <a class="dropdown-item" href="{% url 'edit-my-product' product.id %}"><i class="fa fa-pen"></i> Edit Service</a>
                                                 <a class="dropdown-item" href="{% url 'delete-product' product.id %}"><i class="fa fa-trash"></i> Delete</a>
                                                 {% if product.available %}
                                                 <a class="dropdown-item" href="{% url 'disable-product' product.id %}"><i class=""></i> Disable product </a>

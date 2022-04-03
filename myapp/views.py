@@ -171,6 +171,21 @@ def view_one_product(request,pk):
     product =Product.objects.get(id=pk)
     return render(request,'view-one-product.html',{'uid':uid,'product': product})
 
+def edit_my_product(request,pk):
+    uid = User.objects.get(email=request.session['email'])
+    product = Product.objects.get(id=pk)
+    cate =Category.objects.all()
+    if request.method == 'POST':
+        product.name = request.POST['pname']
+        product.brand = request.POST['pbrand']
+        product.size = request.POST['psize']
+        product.price = request.POST['pprice']
+        product.category = Category.objects.get(id=request.POST['pcategory'])
+        product.des = request.POST['pdes']
+        product.save()
+        return render(request,'edit-my-product.html',{'product':product,'uid': uid,'cate' : cate ,'msg': '----Product Updated----' })
+    return render(request,'edit-my-product.html',{'uid':uid,'cate':cate ,'product':product})
+
 def bootstrap(request):
     return render(request,'table-bootstrap-basic.html')
 def calender(request):

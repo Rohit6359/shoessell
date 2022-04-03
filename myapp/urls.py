@@ -36,6 +36,12 @@ urlpatterns = [
     path('chpass',views.chpass,name='chpass'),
     path('add-products',views.add_products,name='add-products'),
     path('view-my-products',views.view_my_products,name='view-my-products'),
+    path('delete-product/<int:pk>',views.delete_product,name='delete-product'),
+    path('disable-product/<int:pk>',views.disable_product,name='disable-product'),
+    path('enable-product/<int:pk>',views.enable_product,name='enable-product'),
+
+
+
     path('bootstrap',views.bootstrap,name='bootstrap'),
 
 

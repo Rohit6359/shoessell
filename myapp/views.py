@@ -145,7 +145,26 @@ def add_products(request):
     return render(request,'add-products.html',{'uid':uid,'categories':categories}) 
 
 def view_my_products(request):
-    return render(request,'view-my-products.html')
+    uid = User.objects.get(email=request.session['email'])
+    products = Product.objects.filter(seller=uid)
+    return render(request,'view-my-products.html',{'uid' : uid,'products' : products})
+
+def delete_product(request,pk):
+    products =Product.objects.get(id=pk)
+    products.delete()
+    return redirect('view-my-products')
+
+def disable_product(request,pk):
+    products =Product.objects.get(id=pk)
+    products.available = False
+    products.save()
+    return redirect('view-my-products')    
+
+def enable_product(request,pk):
+    products =Product.objects.get(id=pk)
+    products.available = True
+    products.save()
+    return redirect('view-my-products')    
 
 def bootstrap(request):
     return render(request,'table-bootstrap-basic.html')

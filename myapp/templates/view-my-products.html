@@ -22,26 +22,38 @@
                                 <thead>
                                     <tr>
                                         <th>id</th>
-                                        <th>Product Name</th>
-                                        <th> Brand </th>
+                                        <th>Seller Name</th>
+                                        <th> Product Name </th>
                                         <th>Size</th>
                                         <th>Price</th>
                                         <th>Available</th>
+                                        <th>Category</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for product in products %}
                                     <tr>
                                         <td>
                                             <div class="round-img">
-                                                <a href=""><img width="35" src="./images/avatar/1.png" alt=""></a>
+                                                <a href=""><img width="35" src="{{Product.seller.pic.url}}" alt=""></a>
                                             </div>
                                         </td>
-                                        <td>shellepre</td>
-                                        <td><span>peragon</span></td>
-                                        <td><span>6</span></td>
-                                        <td><span>260</span></td>
-                                        <td><span class="badge badge-success">Done</span></td>
+                                        <td>{{product.seller.name}}</td>
+                                        <td><span>{{product.name}}</span></td>
+                                        <td><span>{{product.size}}</span></td>
+                                        <td><span>{{product.price}}</span></td>
+                                        <td>
+                                            {% if product.available %}
+                                            <span class="badge badge-success">
+                                                    <h5>Available</h5>
+                                                {% else %}
+                                                <span class="badge badge-unsucces">
+                                                    <h5>Notavailable</h5>
+                                                {% endif %}
+                                            </span>
+                                        </td>
+                                        <td><span>{{product.category}}</span></td>
                                         <td style="margin-left:10px;">
                                             <div class="dropdown">
                                             <a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,17 +62,17 @@
                                             <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
                                                 <a class="dropdown-item" href=""><i class="fa fa-eye"></i> View Service</a>
                                                 <a class="dropdown-item" href=""><i class="fa fa-pen"></i> Edit Service</a>
-                                                <a class="dropdown-item" href=""><i class="fa fa-trash"></i> Delete</a>
-                                                <!-- {% if service.active %} -->
-                                                <a class="dropdown-item" href=""><i class=""></i> Disable Service</a>
-                                                <!-- {% else %} -->
-                                                <a class="dropdown-item" href=""><i class=""></i> Enable Service</a>
-                                                <!-- {% endif %} -->
+                                                <a class="dropdown-item" href="{% url 'delete-product' product.id %}"><i class="fa fa-trash"></i> Delete</a>
+                                                {% if product.available %}
+                                                <a class="dropdown-item" href="{% url 'disable-product' product.id %}"><i class=""></i> Disable product </a>
+                                                {% else %}
+                                                <a class="dropdown-item" href="{% url 'enable-product' product.id %}"><i class=""></i> Enable product </a>
+                                               {% endif %}
                                             </div>
                                             </div>
                                         </td>
                                     </tr>
-                                  
+                                  {% endfor %}
                                 </div>
                             </div>
                         </div>

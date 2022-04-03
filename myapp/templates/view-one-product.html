@@ -1,0 +1,71 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block head %}
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+    
+            <div class="card">
+    <div class="card-header">
+        {{msg}}
+        <h4  class="card-title">View Product : {{product.name}}</h4>
+    </div>
+    <div class="card-body">
+        <div class="basic-form">
+             <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Product Name</label>
+                        <input type="text" value="{{product.name}}" disabled class="form-control" placeholder="Product name" name="pname">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Brand Name</label>
+                        <input type="text" value="{{product.brand}}" disabled class="form-control" placeholder="Brand Name" name="pbrand">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Size</label>
+                        <input type="number" value="{{product.size}" disabled class="form-control" placeholder="size" name="psize">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Price</label>
+                        <input type="int" value="{{product.price}}" disabled class="form-control" placeholder="price" name="pprice">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Category</label>
+                        <select name="pcategory" disabled id="" class="form-control">
+                            <option value="">{{product.category.category}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Discription</label>
+                        <textarea name="pdes" class="form-control" id="" cols="30" rows="10" disabled >{{product.des}}</textarea>
+                    </div>
+                </div>
+                
+                <div style="text-align: center;" class="form-group col-md-6">
+                    <label style="text-align: center;">Product Image</label>
+                    <input  type="file" value="{{product.pic}}" disabled class="form-control" placeholder="price" name="ppic">
+                </div>          
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label">
+                        </label>
+                    </div>
+                    <br>
+                <a href="{% url 'view-my-products' %}" button   class="btn btn-primary"  style="width: 100%;"> Go Back</button></a>
+
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+  
+</div>
+        </div>
+</div>
+</div>
+ {% endblock %}  
+

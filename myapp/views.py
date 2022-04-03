@@ -166,6 +166,11 @@ def enable_product(request,pk):
     products.save()
     return redirect('view-my-products')    
 
+def view_one_product(request,pk):
+    uid = User.objects.get(email=request.session['email'])
+    product =Product.objects.get(id=pk)
+    return render(request,'view-one-product.html',{'uid':uid,'product': product})
+
 def bootstrap(request):
     return render(request,'table-bootstrap-basic.html')
 def calender(request):

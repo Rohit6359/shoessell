@@ -33,11 +33,17 @@
                                 </thead>
                                 <tbody>
                                     {% for product in products %}
+                                    {% if product.available %}
                                     <tr>
+                                    <tr style="background-color: rgb(24, 71, 241);">
+                                        {% else %}
+                                        <tr style="background-color: rgb(134, 90, 90);">
+                                            {% endif %}
+                                        
                                         <td>
                                             <div class="round-img">
-                                                <a href=""><img width="35" src="{{Product.seller.pic.url}}" alt=""></a>
-                                            </div>
+                                                <a href=""><img width="35" src="{{Product.pic}}" alt=""></a>
+                                            </div>                                        
                                         </td>
                                         <td>{{product.seller.name}}</td>
                                         <td><span>{{product.name}}</span></td>
@@ -60,7 +66,7 @@
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
-                                                <a class="dropdown-item" href=""><i class="fa fa-eye"></i> View Service</a>
+                                                <a class="dropdown-item" href="{% url 'view-one-product' product.id %}"><i class="fa fa-eye"></i> View Service</a>
                                                 <a class="dropdown-item" href=""><i class="fa fa-pen"></i> Edit Service</a>
                                                 <a class="dropdown-item" href="{% url 'delete-product' product.id %}"><i class="fa fa-trash"></i> Delete</a>
                                                 {% if product.available %}

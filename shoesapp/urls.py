@@ -13,6 +13,8 @@ urlpatterns = [
     path('client-women/',views.women,name='client-women'),
     path('client-clogin/',views.clogin,name='client-clogin'),
     path('client-cregister/',views.cregister,name='client-cregister'),
+    path('client-otp/',views.cotp,name='client-otp'),
+
 
 
 ]

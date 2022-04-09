@@ -10,38 +10,38 @@ body {
 h1, h2, h3, h4, h5, h6, a {
   margin:0; padding:0;
 }
-.login {
+.cotp {
   margin:0 auto;
   max-width:500px;
 }
-.login-header {
+.cotp-header {
   color:#fff;
   text-align:center;
   font-size:300%;
 }
-/* .login-header h1 {
+/* .cotp-header h1 {
    text-shadow: 0px 5px 15px #000; */
 }
-.login-form {
+.cotp-form {
   border:.5px solid #fff;
   background:#4facff;
   border-radius:10px;
   box-shadow:0px 0px 10px #000;
 }
-.login-form h3 {
+.cotp-form h3 {
   text-align:left;
   margin-left:40px;
   color:#fff;
 }
-.login-form {
+.cotp-form {
   box-sizing:border-box;
   padding-top:15px;
 	padding-bottom:10%;
   margin:5% auto;
   text-align:center;
 }
-.login input[type="text"],
-.login input[type="password"] {
+.cotp input[type="text"],
+.cotp input[type="password"] {
   max-width:400px;
 	width: 80%;
   line-height:3em;
@@ -52,7 +52,7 @@ h1, h2, h3, h4, h5, h6, a {
   outline:none;
   padding-left:10px;
 }
-.login-form input[type="button"] {
+.cotp-form input[type="button"] {
   height:30px;
   width:100px;
   background:#fff;
@@ -83,58 +83,51 @@ h1, h2, h3, h4, h5, h6, a {
 
 /*Media Querie*/
 @media only screen and (min-width : 150px) and (max-width : 530px){
-  .login-form h3 {
+  .cotp-form h3 {
     text-align:center;
     margin:0;
   }
   .sign-up, .no-access {
     margin:10px 0;
   }
-  .login-button {
+  .cotp-button {
     margin-bottom:10px;
   }
 }
 </style>
-<link href='https://fonts.googleapis.com/css?family=Ubuntu:500' rel='stylesheet' type='text/css'>
-
-<div class="login">
-  <div class="login-header">
-    <h1>login</h1>
+<p>{{msg}}</p>
+<div class="cotp">
+  <div class="cotp-header">
+    <h1>OTP</h1>
+    <form role="form" action="{% url 'client-otp' %}" method="POST">
+      {% csrf_token %}
   </div>
-  <div class="login-form">
-    <h3>First Name</h3>
-    <input type="text" placeholder=""/><br>
+  <div class="cotp-form">
 
-    <h3>Email:</h3>
+    <h3>Enter otp</h3>
     <br>
-    <input style="width: 80%; height: 7%;" type="email" placeholder=""/>
+    <input name="uotp" style="width: 80%; height: 7%;" type="text" placeholder=""/>
     <br><br>
 
-    <h3>Password:</h3>
-    <input type="password" placeholder=""/>
-    <br>
+    <input   type="hidden" value="otp" class="cotp-button"/>
 
 
-    <input type="button" value="login" class="login-button"/>
+    <input   type="button" value="otp" class="cotp-button"/>
     <br>
-    <a class="sign-up">login</a>
+    <a class="sign-up">Submit</a>
     <br>
-    <h6 class="no-access">Can't access your account?</h6>
   </div>
-</div>
-<div class="error-page">
-  <div class="try-again">Error: Try again?</div>
 </div>
 <script>
   $('.error-page').hide(0);
 
-$('.login-button , .no-access').click(function(){
-  $('.login').slideUp(500);
+$('.cotp-button , .no-access').click(function(){
+  $('.cotp').slideUp(500);
   $('.error-page').slideDown(1000);
 });
 
 $('.try-again').click(function(){
   $('.error-page').hide(0);
-  $('.login').slideDown(1000);
+  $('.cotp').slideDown(1000);
 });
 </script>

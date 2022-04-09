@@ -103,18 +103,13 @@ h1, h2, h3, h4, h5, h6, a {
       {% csrf_token %}
   </div>
   <div class="cotp-form">
-
     <h3>Enter otp</h3>
     <br>
     <input name="uotp" style="width: 80%; height: 7%;" type="text" placeholder=""/>
     <br><br>
-
-    <input   type="hidden" value="otp" class="cotp-button"/>
-
-
-    <input   type="button" value="otp" class="cotp-button"/>
+    <input type="hidden" value="{{otp}}" name="otp" class="cotp-button"/>
     <br>
-    <a class="sign-up">Submit</a>
+    <button type="submit" class="btn btn-primary btn-block">OTP</button>
     <br>
   </div>
 </div>

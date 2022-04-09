@@ -1,15 +1,15 @@
+import email
 from http import client
 from random import  randrange
 from multiprocessing.connection import Client
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.core.mail import send_mail
 from django.conf import settings
+from .models import *
 
 
 
 # Create your views here.
-def index(request):
-    return render(request,'index.html') 
 def about(request):
     return render(request,'about.html')
 def men(request):
@@ -28,8 +28,6 @@ def cart(request):
     return render(request,'cart.html')
 def add(request):
     return render(request,'add-to-wishlist.html')
-def clogin(request):
-    return render(request,'clogin.html')
 def cregister(request):
     if request.method == 'POST':
         try:
@@ -56,17 +54,37 @@ def cregister(request):
             return render(request,'cregister.html',{'msg':'both password is not same '})
     return render(request,'cregister.html')
 def cotp(request):
-    # if request.method == 'POST':
-    #     if request.POST['uotp'] == request.POST['otp']:
-    #         global temp
-    #         Client.objects.create(
-    #             fname = temp['fname'],
-    #             lname = temp['lname'],
-    #             email = temp['email'],
-    #             password = temp['password'],
-    #             address = temp['address']
-    #         )
-    #         return render(request,'clogin.html',{'msg' : 'you are sucssesfully register'})
-    #     return render(request,'cotp.html',{'otp':request.POST['otp'],'msg':'incorrect otp'})
+    if request.method == 'POST':
+        if request.POST['uotp'] == request.POST['otp']:
+            global temp
+            Client.objects.create(
+                fname = temp['fname'],
+                lname = temp['lname'],
+                email = temp['email'],
+                password = temp['password'],
+                address = temp['address']
+            )
+            return render(request,'clogin.html',{'msg' : 'you are sucssesfully register'})
+        return render(request,'cotp.html',{'otp':request.POST['otp'],'msg':'incorrect otp'})
     return render(request,'cotp.html')
+
+def clogin(request):
+    try:
+        Client.objects.get(email=request.session['email'])
+        return redirect('index')
+    except:
+        if request.method == 'POST':
+            try:
+                cid = Client.objects.get(email=request.POST['email'])
+                if request.POST['password'] == cid.password:
+                    request.session['email'] = cid.email 
+                    return redirect('index')
+                return render(request,'clogin.html',{'msg' : 'INCRRECT PASSWORD'})
+            except:
+                return render(request,'cregister.html',{'msg' : 'EMAIL IS NOT REGISTER PLZ REGISTER EMAIL'})
+        return render(request,'clogin.html')
+    
+def index(request):
+    cid = Client.objects.get(email=request.session['email'])
+    return render(request,'index.html',{'cid':cid}) 
 

@@ -99,23 +99,24 @@ h1, h2, h3, h4, h5, h6, a {
 
 <div class="login">
   <div class="login-header">
+
     <h1>login</h1>
   </div>
+  <p>{{msg}}</p>
   <div class="login-form">
-    <h3>First Name</h3>
-    <input type="text" placeholder=""/><br>
-
+    <form role="form" action="{% url 'client-clogin' %}" method="POST">
+      {% csrf_token %}
     <h3>Email:</h3>
     <br>
-    <input style="width: 80%; height: 7%;" type="email" placeholder=""/>
+    <input style="width: 80%; height: 7%;" name="email" type="email" placeholder=""/>
     <br><br>
 
     <h3>Password:</h3>
-    <input type="password" placeholder=""/>
+    <input type="password" name="password" placeholder=""/>
     <br>
 
 
-    <input type="button" value="login" class="login-button"/>
+    <input type="submit" value="login" class="login-button"/>
     <br>
     <a class="sign-up">login</a>
     <br>

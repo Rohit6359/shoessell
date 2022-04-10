@@ -1,0 +1,69 @@
+{% extends 'head.html' %}
+{% load static %}
+{% block head %}
+<!--**********************************
+    Sidebar end
+***********************************-->
+
+<!--**********************************
+    Content body start
+***********************************-->
+<div class="content-body">
+    <div class="container-flcid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-18 p-md-0">
+ <br>            
+<div class="card">
+    <div class="card-header">
+        <p>HELLO,{{cid.name}}</p>
+
+        <p>{{msg}}</p></div><br>
+        <h4 class="card-title" style="text-align: center;"><b>Profie page</b></h4>
+        <form role="form" action="{% url 'client-profile' %}" method="POST">
+            {% csrf_token %}
+    </div>
+    <div class="card-body">
+        <div class="basic-form">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label> First Name </label>
+                        <input name="fname" type="text" class="form-control" value="{{cid.fname}}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label> Lirst Name</label>
+                        <input name="lname" type="text" class="form-control" value="{{cid.lname}}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Email</label>
+                        <input name="email" type="email" disabled class="form-control" value="{{cid.email}}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Address</label>
+                        <input name="address" type="text" class="form-control" value="{{cid.address}}">
+                    </div>
+                    <!-- <div class="form-group col-md-6">
+                        <label>doj</label>
+                        <input name="doj" type="date" class="form-control" value="{{cid.doj}}">
+                    </div> -->
+                    <div class="form-group col-md-6">
+                        <label>pic</label>
+                        <input name="pic" type="file" class="form-control" value="{{cid.pic}}">
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <button type="submit" value="update profile" class="btn btn-primary btn-block">Update Profile</button>
+                    <a button href="{% url 'client-clogin' %}">Go back</button></a>
+
+
+
+
+<!--**********************************
+    Content body end
+***********************************-->
+
+
+<!--**********************************
+    Footer start
+***********************************-->
+{% endblock %}

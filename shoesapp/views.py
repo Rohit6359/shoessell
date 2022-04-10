@@ -88,3 +88,30 @@ def index(request):
     cid = Client.objects.get(email=request.session['email'])
     return render(request,'index.html',{'cid':cid}) 
 
+def clogout(request):
+    del request.session['email']
+    return redirect('client-clogin')
+
+def cprofile(request):
+    cid =Client.objects.get(email=request.session['email'])
+    if request.method == 'POST':
+        cid.fname =request.POST['fname']
+        cid.lname =request.POST['lname']
+        cid.address =request.POST['address']
+        # cid.doj =request.POST['doj'],
+        if 'pic' in request.FILES:
+            cid.pic = request.FILES['pic']
+        cid.save()
+        return render(request,'cprofile.html',{'cid':cid,'msg': 'profile updated'})
+    return render(request,'cprofile.html',{'cid':cid})
+def cchangepassword(request):
+    cid =Client.objects.get(email=request.session['email'])
+    if request.method == 'POST':
+        if cid.password == request.POST['opassword']:
+            cid.password = request.POST['npassword']
+            cid.save()
+            return render(request,'changepassword.html',{'cid':cid,'msg':'Password Changed'})
+        return render(request,'changepassword.html',{'cid':cid,'msg':'Wrong Password'})
+    return render(request,'changepassword.html')
+
+

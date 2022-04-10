@@ -14,6 +14,12 @@ urlpatterns = [
     path('client-clogin/',views.clogin,name='client-clogin'),
     path('client-cregister/',views.cregister,name='client-cregister'),
     path('client-otp/',views.cotp,name='client-otp'),
+    path('client-logout/',views.clogout,name='client-logout'),
+    path('client-profile/',views.cprofile,name='client-profile'),
+    path('client-changepassword/',views.cchangepassword,name='client-changepassword'),
+    
+
+
 
 
 

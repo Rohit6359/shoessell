@@ -75,8 +75,19 @@
 								<li><a href="{% url 'client-women' %}">Women</a></li>
 								<li><a href="{% url 'client-about' %}">About</a></li>
 								<li><a href="{% url 'client-contact' %}">Contact</a></li>
+								{% if request.session  %}
+								<li class="has-dropdown">
+									<a href= "">{{cid.fname}} {{cid.lname}}</a>
+									<ul class="dropdown">
+										<li><a href="{% url 'client-profile' %}">My Profile</a></li>
+										<li><a href="{% url 'client-changepassword' %}">Change password</a></li>
+										<li><a href="{% url 'client-logout' %}">Log Out</a></li>
+									</ul>
+								</li>
+								{% else %}
 								<li><a href="{% url 'client-clogin' %}">Login</a></li>
 								<li><a href="{% url 'client-cregister' %}">Register</a></li>
+								{% endif %}
 								<li class="cart"><a href="{% url 'client-cart' %}"><i class="icon-shopping-cart"></i> Cart [0]</a></li>
 							</ul>
 						</div>

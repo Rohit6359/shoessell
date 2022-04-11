@@ -1,3 +1,4 @@
+from importlib.metadata import files
 from django.shortcuts import redirect,render
 from .models import *
 from django.conf import settings
@@ -174,6 +175,8 @@ def edit_my_product(request,pk):
         product.price = request.POST['pprice']
         product.category = Category.objects.get(id=request.POST['pcategory'])
         product.des = request.POST['pdes']
+        if 'ppic' in request.FILES:
+            product.pic =request.FILES['ppic']
         product.save()
         return render(request,'edit-my-product.html',{'product':product,'uid': uid,'cate' : cate ,'msg': '----Product Updated----' })
     return render(request,'edit-my-product.html',{'uid':uid,'cate':cate ,'product':product})

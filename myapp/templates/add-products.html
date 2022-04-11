@@ -12,7 +12,7 @@
     </div>
     <div class="card-body">
         <div class="basic-form">
-            <form action="{% url 'add-products' %}" method="POST" ">
+            <form action="{% url 'add-products' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
             <form>
                 <div class="form-row">
@@ -32,8 +32,14 @@
                         <label>Price</label>
                         <input type="int" class="form-control" placeholder="price" name="pprice">
                     </div>
-                </div>
-                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Image of shoes</label>
+                        <input type="file" class="form-control" name="ppic">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Discription</label>
+                        <textarea name="pdes" class="form-control" id="" cols="30" rows="1"></textarea>
+                    </div>
                     <div class="form-group col-md-6">
                         <label>Category</label>
                         <select name="pcategory" id="" class="form-control">
@@ -43,24 +49,21 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label>Discription</label>
-                        <textarea name="pdes" class="form-control" id="" cols="30" rows="10"></textarea>
-                    </div>
-                </div>
+                    
+                </div>                
 <!--                 
                 <div style="text-align: center;" class="form-group col-md-6">
                     <label style="text-align: center;">Product Image</label>
                     <input  type="file" class="form-control" placeholder="pic" name="ppic">
                 </div> -->
                 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox">
                         <label class="form-check-label">
                         </label>
                     </div>
-                </div>
+                </div> -->
                 <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>

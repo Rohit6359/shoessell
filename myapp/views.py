@@ -131,6 +131,7 @@ def add_products(request):
             size = request.POST['psize'],
             price = request.POST['pprice'],
             des = request.POST['pdes'],
+            pic = request.FILES['ppic'],
             category = cate
         )
         msg = 'Service Added'

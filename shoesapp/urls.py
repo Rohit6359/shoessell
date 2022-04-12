@@ -17,6 +17,8 @@ urlpatterns = [
     path('client-logout/',views.clogout,name='client-logout'),
     path('client-profile/',views.cprofile,name='client-profile'),
     path('client-changepassword/',views.cchangepassword,name='client-changepassword'),
+    path('client-learn-more/<int:pk>/',views.clearn_more,name='client-learn-more'),
+
     
 
 

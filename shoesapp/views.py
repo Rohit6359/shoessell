@@ -1,3 +1,4 @@
+from cgitb import html
 import email
 from http import client
 from random import  randrange
@@ -5,6 +6,8 @@ from multiprocessing.connection import Client
 from django.shortcuts import redirect, render
 from django.core.mail import send_mail
 from django.conf import settings
+
+from myapp.models import Product
 from .models import *
 
 
@@ -28,6 +31,7 @@ def cart(request):
     return render(request,'cart.html')
 def add(request):
     return render(request,'add-to-wishlist.html')
+    
 def cregister(request):
     if request.method == 'POST':
         try:
@@ -53,6 +57,7 @@ def cregister(request):
                 return render(request,'cotp.html',{'otp':otp})  
             return render(request,'cregister.html',{'msg':'both password is not same '})
     return render(request,'cregister.html')
+
 def cotp(request):
     if request.method == 'POST':
         if request.POST['uotp'] == request.POST['otp']:
@@ -85,9 +90,12 @@ def clogin(request):
         return render(request,'clogin.html')
     
 def index(request):
-    cid = Client.objects.get(email=request.session['email'])
-    return render(request,'index.html',{'cid':cid}) 
-
+    product =Product.objects.all()[::-1]
+    try:
+        cid =Client.objects.get(email=request.session['email'])
+        return render(request,'index.html',{'cid' : cid,'product':product})
+    except:
+        return render (request,'index.html',{'product':product})
 def clogout(request):
     del request.session['email']
     return redirect('client-clogin')
@@ -114,4 +122,11 @@ def cchangepassword(request):
         return render(request,'changepassword.html',{'cid':cid,'msg':'Wrong Password'})
     return render(request,'changepassword.html')
 
-
+def clearn_more(request,pk):
+    product= Product.objects.get(id=pk)
+    try:
+        cid = Client.objects.get(request.session['email'])
+        return render(request,'learn-more.html',{'product':product,'cid':cid})
+    except:
+        return render(request,'learn-more.html')
+        

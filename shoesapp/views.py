@@ -75,14 +75,14 @@ def cotp(request):
 
 def clogin(request):
     try:
-        Client.objects.get(email=request.session['email'])
+        Client.objects.get(email=request.session['cemail'])
         return redirect('index')
     except:
         if request.method == 'POST':
             try:
                 cid = Client.objects.get(email=request.POST['email'])
                 if request.POST['password'] == cid.password:
-                    request.session['email'] = cid.email 
+                    request.session['cemail'] = cid.email 
                     return redirect('index')
                 return render(request,'clogin.html',{'msg' : 'INCRRECT PASSWORD'})
             except:
@@ -92,16 +92,16 @@ def clogin(request):
 def index(request):
     product =Product.objects.all()[::-1]
     try:
-        cid =Client.objects.get(email=request.session['email'])
+        cid =Client.objects.get(email=request.session['cemail'])
         return render(request,'index.html',{'cid' : cid,'product':product})
     except:
         return render (request,'index.html',{'product':product})
 def clogout(request):
-    del request.session['email']
+    del request.session['cemail']
     return redirect('client-clogin')
 
 def cprofile(request):
-    cid =Client.objects.get(email=request.session['email'])
+    cid =Client.objects.get(email=request.session['cemail'])
     if request.method == 'POST':
         cid.fname =request.POST['fname']
         cid.lname =request.POST['lname']
@@ -113,7 +113,7 @@ def cprofile(request):
         return render(request,'cprofile.html',{'cid':cid,'msg': 'profile updated'})
     return render(request,'cprofile.html',{'cid':cid})
 def cchangepassword(request):
-    cid =Client.objects.get(email=request.session['email'])
+    cid =Client.objects.get(email=request.session['cemail'])
     if request.method == 'POST':
         if cid.password == request.POST['opassword']:
             cid.password = request.POST['npassword']
@@ -125,8 +125,16 @@ def cchangepassword(request):
 def clearn_more(request,pk):
     product= Product.objects.get(id=pk)
     try:
-        cid = Client.objects.get(request.session['email'])
+        cid = Client.objects.get(request.session['cemail'])
         return render(request,'learn-more.html',{'product':product,'cid':cid})
     except:
-        return render(request,'learn-more.html')
+        return render(request,'learn-more.html',{'product' : product})
+
+def cmen(request,pk):
+    product= Product.objects.get(id=pk)
+    try:
+        cid = Client.objects.get(request.session['cemail'])
+        return render(request,'men.html',{'product':product,'cid':cid})
+    except:
+        return render(request,'men.html',{'product' : product})
         

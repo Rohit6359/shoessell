@@ -76,7 +76,7 @@
 								<li><a href="{% url 'client-about' %}">About</a></li>
 								<li><a href="{% url 'client-contact' %}">Contact</a></li>
 
-								{% if request.session  %}
+								{% if request.session.cemail  %}
 								<li class="has-dropdown">
 									<a href= "">{{cid.fname}} {{cid.lname}}</a>
 									<ul class="dropdown">

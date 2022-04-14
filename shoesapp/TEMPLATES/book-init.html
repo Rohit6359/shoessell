@@ -1,0 +1,62 @@
+{% extends 'head.html' %}
+{% load static %}
+{% block head %}
+		<div class="breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<p class="bread"><span><a href="{% url 'index' %}">Home</a></span> / <span>About</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="colorlib-about">
+			<div class="container">
+				<div class="row row-pb-lg">
+					<div class="col-sm-6 mb-3">
+						<div class="video colorlib-video" style="background-image: url({{product.pic.url}});">
+							<div class="overlay"></div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="about-wrap">
+							<h2>name:-{{product.name}}</h2>
+							<b>Description:-{{product.des}}</b><br>
+							<b>Price:-{{product.price}}</b><br>
+							<b>Brand:-{{product.brand}}</b><br>
+							<b>Category:-{{product.category}}</b><br>
+							<b>Size:-{{product.size}}</b><br>
+							<b>Seller Name:-{{product.seller.name}}</b><br>
+							<br>
+                            <form action="{% url 'book-init' product.id %}" method="POST">
+								{% csrf_token %}
+                                <label for="">Date</label>
+                                <input type="date" name="date" class="form-control"><br>
+                                <label for="">Time</label>
+                                <select name="time" class="form-control" id="">
+                                    <option value="Morning">Morning</option>
+                                    <option value="Afternoon">Afternoon</option>
+                                    <option value="Evening">Evening</option>
+                                </select><br>
+                                <label for="">Address</label>
+                                <textarea name="address" class="form-control" id="" cols="30" rows="5"></textarea>
+                            <label for="">Payment Method</label><br>
+                            <input type="radio" name="pay" value="COD" >
+                            <label for="">COD </label><br>
+                            <input type="radio" name="pay" value="Online" >
+                            <label for="">Online </label><br>
+                            <br>
+							<button class="btn btn-primary" type="submit">Book</button>
+							
+							
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{% endblock %}

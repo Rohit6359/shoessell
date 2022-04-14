@@ -1,4 +1,7 @@
+
 from django.db import models
+
+from myapp.models import Product
 
 # Create your models here.
 
@@ -12,3 +15,19 @@ class Client(models.Model):
 
     def __str__(self):
         return self.fname + '------' + self.email
+
+class Booking(models.Model):
+    client = models.ForeignKey(Client,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    date = models.DateField()
+    time = models.CharField(max_length=50,choices=[('Morning','Morning'),('Afternoon','Afternoon'),('Evening','Evening')])
+    address = models.TextField()
+    pay_mode = models.CharField(max_length=50,choices=[('COD','COD'),('Online','Online')])
+    pay_id = models.CharField(max_length=30,null=True,blank=True)
+    verify = models.BooleanField(default=False)
+    amount = models.IntegerField(default=0)
+    pay_at = models.DateTimeField(auto_now_add =True)
+    
+    def __str__(self):
+        return str(self.date)
+

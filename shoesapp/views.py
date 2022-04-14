@@ -3,6 +3,8 @@ import email
 from http import client
 from random import  randrange
 from multiprocessing.connection import Client
+from urllib import request
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.core.mail import send_mail
 from django.conf import settings
@@ -98,7 +100,7 @@ def index(request):
         return render (request,'index.html',{'product':product})
 def clogout(request):
     del request.session['cemail']
-    return redirect('client-clogin')
+    return redirect('index')
 
 def cprofile(request):
     cid =Client.objects.get(email=request.session['cemail'])
@@ -125,16 +127,34 @@ def cchangepassword(request):
 def clearn_more(request,pk):
     product= Product.objects.get(id=pk)
     try:
-        cid = Client.objects.get(request.session['cemail'])
+        cid = Client.objects.get(email=request.session['cemail'])
         return render(request,'learn-more.html',{'product':product,'cid':cid})
     except:
         return render(request,'learn-more.html',{'product' : product})
+def book_init(request,pk):
+    if request.method == 'POST':
+        cid = Client.objects.get(email=request.session['cemail'])
+        product = Product.objects.get(id=pk)
+        book = Booking.objects.create(
+            client = cid,
+            product = product,
+            date = request.POST['date'],
+            time = request.POST['time'],
+            address = request.POST['address'],
+            pay_mode = request.POST['pay']
+        )
 
-def cmen(request,pk):
-    product= Product.objects.get(id=pk)
+        if request.POST['pay'] == 'Online':
+             return render(request,'pay.html')
+
+        else:
+            msg = 'Your Booking is confirm you have pay amount onsite.'
+            return render(request,'confirm.html',{'cid':cid,'booking':book,'msg':msg})
     try:
-        cid = Client.objects.get(request.session['cemail'])
-        return render(request,'men.html',{'product':product,'cid':cid})
+        cid = Client.objects.get(email=request.session['cemail'])
+        product = Product.objects.get(id=pk)
+        return render(request,'book-init.html',{'cid':cid,'product':product})
     except:
-        return render(request,'men.html',{'product' : product})
-        
+        return redirect('client-clogin')
+    
+

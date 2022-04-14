@@ -1,4 +1,3 @@
-
 from django.db import models
 
 # Create your models here.
@@ -34,7 +33,4 @@ class Product(models.Model):
     pic = models.FileField(upload_to='shoesimg',default='avtar.png',null=True)
 
     def __str__(self):
-        return self.seller.name + ' >>>> ' + self.name
-
-        
-        
+        return self.seller.name + ' >>>> ' + self.name    

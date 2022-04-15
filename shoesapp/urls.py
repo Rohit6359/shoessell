@@ -19,6 +19,7 @@ urlpatterns = [
     path('client-changepassword/',views.cchangepassword,name='client-changepassword'),
     path('client-learn-more/<int:pk>/',views.clearn_more,name='client-learn-more'),
     path('book-init/<int:pk>/',views.book_init,name='book-init'),
+    path('book-init/paymenthandler/<int:pk>', views.paymenthandler, name='paymenthandler'),
     
 
 

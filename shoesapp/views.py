@@ -95,6 +95,9 @@ def clogin(request):
     
 def index(request):
     product =Product.objects.all()[::-1]
+    if request.method=='POST':
+        product=Product.objects.filter(name__contains=request.POST['shoes']),
+        product=Product.objects.filter(brand__contains=request.POST['shoes'])
     try:
         cid =Client.objects.get(email=request.session['cemail'])
         return render(request,'index.html',{'cid' : cid,'product':product})
@@ -190,7 +193,7 @@ razorpay_client = razorpay.Client(
 # POST request will be made by Razorpay
 # and it won't have the csrf token.
 @csrf_exempt
-def paymenthandler(request,pk):
+def paymenthandler(request,pk,pid):
  
     # only accept POST request.
     if request.method == "POST":

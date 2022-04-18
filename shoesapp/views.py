@@ -2,6 +2,7 @@ from cgitb import html
 import email
 from random import  randrange
 from multiprocessing.connection import Client
+from unicodedata import category
 from urllib import request
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -20,7 +21,28 @@ from django.http import HttpResponseBadRequest
 def about(request):
     return render(request,'about.html')
 def men(request):
-    return render(request,'men.html')
+    product = Product.objects.all()
+    try:
+        cid = Client.objects.get(email=request.session['cemail'])
+        return render(request,'men.html',{'cid' : cid,'product' : product})
+    except:
+        return render(request,'men.html',{'product' : product})
+def women(request):
+    product = Product.objects.all()
+    try:
+        cid = Client.objects.get(email=request.session['cemail'])
+        return render(request,'women.html',{'cid' : cid,'product' : product})
+    except:
+        return render(request,'women.html',{'product' : product})
+
+def children(request):
+    product = Product.objects.all()
+    try:
+        cid = Client.objects.get(email=request.session['cemail'])
+        return render(request,'children.html',{'cid' : cid,'product' : product})
+    except:
+        return render(request,'children.html',{'product' : product})
+
 def checkout(request):
     return render(request,'checkout.html')
 def contact(request):
@@ -29,10 +51,17 @@ def order(request):
     return render(request,'order-complete.html')
 def product(request):
     return render(request,'product-detail.html')
-def women(request):
-    return render(request,'women.html')
+
 def cart(request):
-    return render(request,'cart.html')
+    try:
+
+        cid = Client.objects.get(email=request.session['cemail'])
+        book = Booking.objects.filter(fname=cid)
+        product =Product.objects.all()
+        return render(request,'cart.html',{'cid' : cid,'book' : book,'product':product})
+    except:
+        return render(request,'cart.html')
+
 def add(request):
     return render(request,'add-to-wishlist.html')
     
@@ -119,6 +148,7 @@ def cprofile(request):
         cid.save()
         return render(request,'cprofile.html',{'cid':cid,'msg': 'profile updated'})
     return render(request,'cprofile.html',{'cid':cid})
+
 def cchangepassword(request):
     cid =Client.objects.get(email=request.session['cemail'])
     if request.method == 'POST':
@@ -136,6 +166,7 @@ def clearn_more(request,pk):
         return render(request,'learn-more.html',{'product':product,'cid':cid})
     except:
         return render(request,'learn-more.html',{'product' : product})
+
 def book_init(request,pk):
     if request.method == 'POST':
         cid = Client.objects.get(email=request.session['cemail'])
@@ -143,8 +174,6 @@ def book_init(request,pk):
         book = Booking.objects.create(
             client = cid,
             product = product,
-            date = request.POST['date'],
-            time = request.POST['time'],
             address = request.POST['address'],
             pay_mode = request.POST['pay'],
             amount = product.price

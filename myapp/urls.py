@@ -17,6 +17,7 @@ urlpatterns = [
     path('enable-product/<int:pk>',views.enable_product,name='enable-product'),
     path('view-one-product/<int:pk>',views.view_one_product,name='view-one-product'),
     path('edit-my-product/<int:pk>',views.edit_my_product,name='edit-my-product'),
+    path('view-clients-orders',views.view_clients_order,name='view-clients-orders'),
 
 
 

@@ -11,6 +11,7 @@ urlpatterns = [
     path('client-order/',views.order,name='client-order'),
     path('client-product/',views.product,name='client-product'),
     path('client-women/',views.women,name='client-women'),
+    path('client-children/',views.children,name='client-children'),
     path('client-clogin/',views.clogin,name='client-clogin'),
     path('client-cregister/',views.cregister,name='client-cregister'),
     path('client-otp/',views.cotp,name='client-otp'),

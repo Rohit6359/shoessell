@@ -1,4 +1,8 @@
 
+from datetime import date
+from pickle import TRUE
+from pyexpat import model
+from time import time
 from django.db import models
 
 from myapp.models import Product
@@ -19,8 +23,6 @@ class Client(models.Model):
 class Booking(models.Model):
     client = models.ForeignKey(Client,on_delete=models.CASCADE)
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
-    date = models.DateField()
-    time = models.CharField(max_length=50,choices=[('Morning','Morning'),('Afternoon','Afternoon'),('Evening','Evening')])
     address = models.TextField()
     pay_mode = models.CharField(max_length=50,choices=[('COD','COD'),('Online','Online')])
     pay_id = models.CharField(max_length=30,null=True,blank=True)
@@ -29,5 +31,5 @@ class Booking(models.Model):
     pay_at = models.DateTimeField(auto_now_add =True)
     
     def __str__(self):
-        return str(self.date)
+        return str(self.product.name)
 

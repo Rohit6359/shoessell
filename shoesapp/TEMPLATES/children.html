@@ -5,7 +5,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col">
-						<p class="bread"><span><a href="{% url 'index' %}">Home</a></span> / <span>Men</span></p>
+						<p class="bread"><span><a href="{% url 'index' %}">Home</a></span> / <span>children</span></p>
 					</div>
 				</div>
 			</div>
@@ -16,9 +16,9 @@
 				<div class="row">
 					<div class="col">
 						<div class="breadcrumbs-img" style="background-image: url({% static 'assets/images/cover-img-1.jpg' %});">
-							<h2>Men's</h2>
+							<h2>children's</h2>
 						</div>
-						<div class="menu text-center">
+						<div class="childrenu text-center">
 							<p><a href="#">New Arrivals</a> <a href="#">Best Sellers</a> <a href="#">Extended Widths</a> <a href="#">Sale</a></p>
 						</div>
 					</div>
@@ -26,37 +26,7 @@
 			</div>
 		</div>
 
-		<div class="colorlib-featured">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-4 text-center">
-						<div class="featured">
-							<div class="featured-img featured-img-2" style="background-image: url({% static 'assets/images/men.jpg' %});">
-								<h2>Casuals</h2>
-								<p><a href="#" class="btn btn-primary btn-lg">Shop now</a></p>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4 text-center">
-						<div class="featured">
-							<div class="featured-img featured-img-2" style="background-image: url({% static 'assets/images/women.jpg' %});">
-								<h2>Dress</h2>
-								<p><a href="#" class="btn btn-primary btn-lg">Shop now</a></p>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4 text-center">
-						<div class="featured">
-							<div class="featured-img featured-img-2" style="background-image: url({% static 'assets/images/item-11.jpg' %});">
-								<h2>Sports</h2>
-								<p><a href="#" class="btn btn-primary btn-lg">Shop now</a></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
+	
 		<div class="colorlib-product">
 			<div class="container">
 				<div class="row">
@@ -65,18 +35,18 @@
 					</div>
 				</div>
 				<div class="row row-pb-md">
-					{% for men in product %}
-					{% if men.category.category == 'Man' %}
+					{% for children in product %}
+					{% if children.category.category == 'Children' %}
 					<div class="col-md-3 col-lg-3 mb-4 text-center">
 						<div class="product-entry border">
 							<a href="#" class="prod-img">
-								<img src="{{men.pic.url}}" class="img-fluid" alt="Free html5 bootstrap 4 template">
+								<img src="{{children.pic.url}}" class="img-fluid" alt="Free html5 bootstrap 4 template">
 							</a>
 							<div class="desc">
-								<h2><a href="#">{{men.name}}</a></h2>
-								<span class="price">{{men.price}}</span>
-								{% if men.available %}
-								<a class="btn btn btn-primary" href="{% url 'client-learn-more' men.id %}">Learn More</a>
+								<h2><a href="#">{{children.name}}</a></h2>
+								<span class="price">{{children.price}}</span>
+								{% if children.available %}
+								<a class="btn btn btn-primary" href="{% url 'client-learn-more' children.id %}">Learn More</a>
 								{% else %}
 								<h3>Comming Soon </h3>
 								{% endif %}

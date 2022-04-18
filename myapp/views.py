@@ -1,5 +1,7 @@
 from importlib.metadata import files
 from django.shortcuts import redirect,render
+
+from shoesapp.models import Booking
 from .models import *
 from django.conf import settings
 from django.core.mail import send_mail
@@ -182,7 +184,8 @@ def edit_my_product(request,pk):
         return render(request,'edit-my-product.html',{'product':product,'uid': uid,'cate' : cate ,'msg': '----Product Updated----' })
     return render(request,'edit-my-product.html',{'uid':uid,'cate':cate ,'product':product})
 
-
+def view_clients_order(request):
+    return render(request,'view-clients-order.html')
 
 
 

@@ -32,16 +32,8 @@
 							<br>
                             <form action="{% url 'book-init' product.id %}" method="POST">
 								{% csrf_token %}
-                                <label for="">Date</label>
-                                <input type="date" name="date" class="form-control"><br>
-                                <label for="">Time</label>
-                                <select name="time" class="form-control" id="">
-                                    <option value="Morning">Morning</option>
-                                    <option value="Afternoon">Afternoon</option>
-                                    <option value="Evening">Evening</option>
-                                </select><br>
-                                <label for="">Address</label>
-                                <textarea name="address" class="form-control" id="" cols="30" rows="5"></textarea>
+                            <label for="">Address</label>
+                            <textarea name="address" class="form-control" placeholder="{{cid.address}}"  value="{{cid.address}}" id="" cols="30" rows="5" required></textarea>
                             <label for="">Payment Method</label><br>
                             <input type="radio" name="pay" value="COD" >
                             <label for="">COD </label><br>

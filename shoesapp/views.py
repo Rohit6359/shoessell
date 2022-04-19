@@ -56,9 +56,8 @@ def cart(request):
     try:
 
         cid = Client.objects.get(email=request.session['cemail'])
-        book = Booking.objects.filter(fname=cid)
-        product =Product.objects.all()
-        return render(request,'cart.html',{'cid' : cid,'book' : book,'product':product})
+        book = Booking.objects.filter(client=cid)
+        return render(request,'cart.html',{'cid' : cid,'book' : book})
     except:
         return render(request,'cart.html')
 

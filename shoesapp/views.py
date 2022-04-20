@@ -53,13 +53,13 @@ def product(request):
     return render(request,'product-detail.html')
 
 def cart(request):
-    try:
 
+    try:
         cid = Client.objects.get(email=request.session['cemail'])
         book = Booking.objects.filter(client=cid)
         return render(request,'cart.html',{'cid' : cid,'book' : book})
     except:
-        return render(request,'cart.html')
+        return render(request,'clogin.html')
 
 def add(request):
     return render(request,'add-to-wishlist.html')

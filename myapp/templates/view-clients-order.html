@@ -36,41 +36,24 @@
                                     <td>
                                             <div class="round-img">
                                                 <!-- <a href=""><img width="35" src="{{Product.pic}}" alt=""></a> -->
-                                                <img  width="50" alt="Image placeholder"  src="{{od.pic.url}}">
+                                                <img  width="50" alt="Image placeholder"  src="{{od.product.pic.url}}">
                                             </div>                                        
                                         </td>
-                                        <td>{{od.seller.name}}</td>
-                                        <td><span>{{product.name}}</span></td>
-                                        <td><span>{{product.size}}</span></td>
-                                        <td><span>{{product.price}}</span></td>
+                                        <td>{{od.client.lname}}</td>
+                                        <td><span>{{od.product.name}}</span></td>
+                                        <td><span>{{od.product.size}}</span></td>
+                                        <td><span>{{od.product.price}}</span></td>
                                         <td>
-                                            {% if product.available %}
+                                            {% if product.verify %}
                                             <span class="badge badge-success">
-                                                    <h5>Available</h5>
+                                                    <h5>Sussess</h5>
                                                 {% else %}
                                                 <span class="badge badge-unsucces">
-                                                    <h5>Notavailable</h5>
+                                                    <h5>Fail</h5>
                                                 {% endif %}
                                             </span>
                                         </td>
-                                        <td><span>{{product.category}}</span></td>
-                                        <td style="margin-left:10px;">
-                                            <div class="dropdown">
-                                            <a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
-                                                <a class="dropdown-item" href="{% url 'view-one-product' product.id %}"><i class="fa fa-eye"></i> View Product</a>
-                                                <a class="dropdown-item" href="{% url 'edit-my-product' product.id %}"><i class="fa fa-edit"></i> Edit Product</a>
-                                                <a class="dropdown-item" href="{% url 'delete-product' product.id %}"><i class="fa fa-trash"></i> Delete</a>
-                                                {% if product.available %}
-                                                <a class="dropdown-item" href="{% url 'disable-product' product.id %}"><i class=""></i> Disable product </a>
-                                                {% else %}
-                                                <a class="dropdown-item" href="{% url 'enable-product' product.id %}"><i class=""></i> Enable product </a>
-                                               {% endif %}
-                                            </div>
-                                            </div>
-                                        </td>
+                                        <td><span>{{od.product.category}}</span></td>
                                     </tr>
                                   {% endfor %}
                                 </div>

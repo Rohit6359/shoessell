@@ -8,18 +8,23 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.core.mail import send_mail
 from django.conf import settings
-from myapp.models import Product
+from myapp.models import Contact, Product
 from .models import *
 import razorpay
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest
-
+from django.http import JsonResponse
 
 
 # Create your views here.
 def about(request):
-    return render(request,'about.html')
+    try:
+        cid = Client.objects.get(email=request.session['cemail'])
+        return render(request,'about.html',{'cid':cid})
+    except:
+        return render(request,'about.html')
+
 def men(request):
     product = Product.objects.all()
     try:
@@ -45,21 +50,76 @@ def children(request):
 
 def checkout(request):
     return render(request,'checkout.html')
+
+
 def contact(request):
-    return render(request,'contact.html')
+    try:
+        cid = Client.objects.get(email=request.session['cemail'])
+        if request.method == 'POST':
+            Contact.objects.create(
+                fname=request.POST['fname'],
+                lname=request.POST['lname'],
+                email=request.POST['email'],
+                subject=request.POST['subject'],
+                message=request.POST['message']
+            )
+            msg='Complant is Added'
+            return render(request,'contact.html',{'msg':msg,'cid':cid})
+        return render(request,'contact.html',{'cid':cid})
+    except:
+        if request.method == 'POST':
+            Contact.objects.create(
+                name=request.POST['name'],
+                email=request.POST['email'],
+                subject=request.POST['subject'],
+                message=request.POST['message']
+            )
+            msg='Complant is Added'
+            return render(request,'contact.html',{'msg':msg})
+        return render(request,'contact.html')
+
+
 def order(request):
     return render(request,'order-complete.html')
 def product(request):
     return render(request,'product-detail.html')
 
-def cart(request):
-
+def carts(request):
     try:
-        cid = Client.objects.get(email=request.session['cemail'])
-        book = Booking.objects.filter(client=cid)
-        return render(request,'cart.html',{'cid' : cid,'book' : book})
+        uid = Client.objects.get(email=request.session['cemail'])
+        product=Product.objects.get(id=request.POST['id'])
+        try:
+            cart= Cart.objects.get(user=uid,cart = product) 
+            cart.qty += int(request.POST['qty'])
+            cart.save() 
+        except:
+            cart=Cart.objects.create(
+                cart=product,
+                qty=request.POST['qty'],
+                user=uid,
+            )            
+        return JsonResponse({'msg':'Added To Cart'})
     except:
-        return render(request,'clogin.html')
+        return JsonResponse({'msg':'Please Login and try Again'})
+
+
+
+def cart(request):
+    try:
+        uid = Client.objects.get(email=request.session['cemail'])
+        cart=Cart.objects.filter(user=uid)
+        car=0
+        for i in cart:
+            car += (i.cart.price * i.qty)
+        dis=car-car*25/100
+        return render(request,'cart.html',{'cart':cart,'car':car,'dis':dis})
+    except:
+        return redirect('clogin')
+
+def deletecarts(request,pk):
+    cart=Cart.objects.get(id=pk)
+    cart.delete()
+    return render(request,'cart.html')
 
 def add(request):
     return render(request,'add-to-wishlist.html')
@@ -124,8 +184,8 @@ def clogin(request):
 def index(request):
     product =Product.objects.all()[::-1]
     if request.method=='POST':
-        product=Product.objects.filter(name__contains=request.POST['shoes']),
-        product=Product.objects.filter(brand__contains=request.POST['shoes'])
+        product=list(Product.objects.filter(name__contains=request.POST['shoes']))
+        product += list(Product.objects.filter(brand__contains=request.POST['shoes']))
     try:
         cid =Client.objects.get(email=request.session['cemail'])
         return render(request,'index.html',{'cid' : cid,'product':product})
@@ -162,7 +222,7 @@ def clearn_more(request,pk):
     product= Product.objects.get(id=pk)
     try:
         cid = Client.objects.get(email=request.session['cemail'])
-        return render(request,'learn-more.html',{'product':product,'cid':cid})
+        return render(request,'learn-more.html',{'pro':product,'cid':cid})
     except:
         return render(request,'learn-more.html',{'product' : product})
 

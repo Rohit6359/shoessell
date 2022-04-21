@@ -44,43 +44,36 @@
 							<div class="one-eight text-center">
 								<span>Quantity</span>
 							</div>
-							<div class="one-eight text-center">
-								<span>Total</span>
-							</div>
 							<div class="one-eight text-center px-4">
 								<span>Remove</span>
 							</div>
 						</div>
-						{% for order in book  %}
+						{% for i in cart %}
 						<div class="product-cart d-flex">
 							<div class="one-forth">
-								<div class="product-img" style="background-image: url({{order.product.pic.url}});">
+								<div class="product-img" style="background-image: url({{i.cart.pic.url}});">
 								</div>
 								<div class="display-tc">
-								</div>
-							</div>
-							<div class="one-eight text-center">
-								<div class="display-tc">
-									<span class="price">{{order.product.price}}</span>
+									<h3>{{i.cart.name}}</h3>
 								</div>
 							</div>
 							<div class="one-eight text-center">
 								<div class="display-tc">
-									<input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="1" min="1" max="100">
+									<span class="price" id="price">{{i.cart.price}}</span>
 								</div>
 							</div>
 							<div class="one-eight text-center">
 								<div class="display-tc">
-									<span class="price">{{order.product.price}}</span>
+									<input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="{{i.qty}}" min="1" max="100">
 								</div>
 							</div>
 							<div class="one-eight text-center">
 								<div class="display-tc">
-									<a href="#" class="closed"></a>
+									<a href="{% url 'deletecarts' i.id %}" class="closed"></a>
 								</div>
 							</div>
 						</div>
-						{% endfor %}
+				{% endfor %}
 						
 					</div>
 				</div>
@@ -88,30 +81,18 @@
 					<div class="col-md-12">
 						<div class="total-wrap">
 							<div class="row">
-								<div class="col-sm-8">
-									<form action="#">
-										<div class="row form-group">
-											<div class="col-sm-9">
-												<input type="text" name="quantity" class="form-control input-number" placeholder="Your Coupon Number...">
-											</div>
-											<div class="col-sm-3">
-												<input type="submit" value="Apply Coupon" class="btn btn-primary">
-											</div>
-										</div>
-									</form>
-								</div>
 								<div class="col-sm-4 text-center">
 									<div class="total">
-										
 										<div class="sub">
-											<p><span>Subtotal:</span> <span>495</span></p>
-											<p><span>Delivery:</span> <span>0.00</span></p>
-											<p><span>Discount:</span> <span>45.00</span></p>
-											
+											<p><span>Subtotal:</span> <span>₹{{car}}</span></p>
+											<p><span>Discount:</span> <span>25%</span></p>
 										</div>
 										<div class="grand-total">
-											<p><span><strong>Total:</strong></span> <span>$450.00</span></p>
+											
+											<p><span><strong>Total:</strong></span> <span>₹{{dis}}</span></p>
 										</div>
+										<button class="btn btn-primary">Buy</button>
+
 									</div>
 								</div>
 							</div>
@@ -132,7 +113,7 @@
 							</a>
 							<div class="desc">
 								<h2><a href="#">Women's Boots Shoes Maca</a></h2>
-								<span class="price">$139.00</span>
+								<span class="price">₹139.00</span>
 							</div>
 						</div>
 					</div>
@@ -143,7 +124,7 @@
 							</a>
 							<div class="desc">
 								<h2><a href="#">Women's Minam Meaghan</a></h2>
-								<span class="price">$139.00</span>
+								<span class="price">₹139.00</span>
 							</div>
 						</div>
 					</div>
@@ -154,7 +135,7 @@
 							</a>
 							<div class="desc">
 								<h2><a href="#">Men's Taja Commissioner</a></h2>
-								<span class="price">$139.00</span>
+								<span class="price">₹139.00</span>
 							</div>
 						</div>
 					</div>
@@ -165,7 +146,7 @@
 							</a>
 							<div class="desc">
 								<h2><a href="#">Russ Men's Sneakers</a></h2>
-								<span class="price">$139.00</span>
+								<span class="price">₹139.00</span>
 							</div>
 						</div>
 					</div>
@@ -173,4 +154,9 @@
 			</div>
 		</div>
 
+		<script>
+			₹('.product-cart d-flex').each(function(){
+				total += parseFloat(₹(this).children('.price').text());
+			});
+		</script>
 		{% endblock %}

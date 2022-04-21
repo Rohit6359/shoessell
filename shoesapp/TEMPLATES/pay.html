@@ -1,7 +1,7 @@
 {% extends 'head.html' %}
 {% load static %}
 {% block head %}
-<button class="btn btn-primary" id="pay-btn">Donate</button>
+<center><button class="btn btn-primary" style="margin-top: 30px;" id="pay-btn">PayFor Product</button></center>
 <!-- Razorpay's Javascript code. -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
@@ -17,7 +17,7 @@
 	currency: "{{ currency }}",
 	
 	// Your/store name.
-	name: "Dj Razorpay",
+	name: "{{book.product.name}} From Footware",
 	
 	// Pass the `id` obtained in the response of Step 1
 	order_id: "{{ razorpay_order_id }}",

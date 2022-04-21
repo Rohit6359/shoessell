@@ -33,3 +33,12 @@ class Booking(models.Model):
     def __str__(self):
         return str(self.product.name)
 
+
+class Cart(models.Model):
+    user = models.ForeignKey(Client,on_delete=models.CASCADE,null=True)
+    # size = models.CharField(max_length=60)
+    qty = models.IntegerField()
+    cart=models.ForeignKey(Product,on_delete=models.CASCADE,null=True)
+
+    def __str__(self):
+        return self.user.name

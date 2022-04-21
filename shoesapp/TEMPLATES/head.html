@@ -35,7 +35,10 @@
 
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	</head>
 	<body>
 		
@@ -228,6 +231,43 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="{% static 'assets/js/jquery.stellar.min.js' %}"></script>
 	<!-- Main -->
 	<script src="{% static 'assets/js/main.js' %}"></script>
+	<script>
+		$(document).ready(function(){
+
+		var quantitiy=0;
+			$('.quantity-right-plus').click(function(e){
+				
+				// Stop acting like a button
+				e.preventDefault();
+				// Get the field name
+				var quantity = parseInt($('#quantity').val());
+				
+				// If is not undefined
+					
+					$('#quantity').val(quantity + 1);
+
+					
+					// Increment
+				
+			});
+
+				$('.quantity-left-minus').click(function(e){
+				// Stop acting like a button
+				e.preventDefault();
+				// Get the field name
+				var quantity = parseInt($('#quantity').val());
+				
+				// If is not undefined
+				
+					// Increment
+					if(quantity>0){
+					$('#quantity').val(quantity - 1);
+					}
+			});
+			
+		});
+	</script>
+
 
 	</body>
 </html>

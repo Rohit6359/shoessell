@@ -16,11 +16,14 @@ urlpatterns = [
     path('client-cregister/',views.cregister,name='client-cregister'),
     path('client-otp/',views.cotp,name='client-otp'),
     path('client-logout/',views.clogout,name='client-logout'),
+    path('deletecarts/<int:pk>/',views.deletecarts,name='deletecarts'),
     path('client-profile/',views.cprofile,name='client-profile'),
     path('client-changepassword/',views.cchangepassword,name='client-changepassword'),
     path('client-learn-more/<int:pk>/',views.clearn_more,name='client-learn-more'),
     path('book-init/<int:pk>/',views.book_init,name='book-init'),
     path('book-init/<int:pid>/paymenthandler/<int:pk>', views.paymenthandler, name='paymenthandler'),
+    path('carts/',views.carts,name='carts'),
+
     
 
 

@@ -33,3 +33,13 @@ class Product(models.Model):
 
     def __str__(self):
         return self.seller.name + ' >>>> ' + self.name    
+class Contact(models.Model):
+    fname=models.CharField(max_length=30)
+    lname=models.CharField(max_length=30)
+    email=models.EmailField()
+    subject=models.CharField(max_length=50,null=True)
+    message=models.TextField(max_length=200)
+    enq_time = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.name

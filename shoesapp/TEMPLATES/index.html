@@ -71,21 +71,29 @@
 			</div>
 		</div>
 		<div class="colorlib-product">
-			<div class="container-fluid">
+			<div class="container">
 				<div class="row">
-					<div class="col-sm-6 text-center">
+					<div class="col-sm-4 text-center">
 						<div class="featured">
-							<a href="#" class="featured-img" style="background-image: url({% static 'assets/images/men.jpg' %});"></a>
-							<div class="desc">
-								<h2><a href="#">Shop Men's Collection</a></h2>
+							<div class="featured-img featured-img-2" style="background-image: url({% static 'assets/images/men.jpg' %});">
+								<h2>Man's</h2>
+								<p><a href="{% url 'client-men' %}" class="btn btn-primary btn-lg">Shop now</a></p>
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-6 text-center">
+					<div class="col-sm-4 text-center">
 						<div class="featured">
-							<a href="#" class="featured-img" style="background-image: url({% static 'assets/images/women.jpg' %});"></a>
-							<div class="desc">
-								<h2><a href="#">Shop Women's Collection</a></h2>
+							<div class="featured-img featured-img-2" style="background-image: url({% static 'assets/images/women.jpg' %});">
+								<h2>Women's</h2>
+								<p><a href="{% url 'client-women' %}" class="btn btn-primary btn-lg">Shop now</a></p>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 text-center">
+						<div class="featured">
+							<div class="featured-img featured-img-2" style="background-image: url({% static 'assets/images/item-15.jpg' %});">
+								<h2>Children's</h2>
+								<p><a href="{% url 'client-children' %}" class="btn btn-primary btn-lg">Shop now</a></p>
 							</div>
 						</div>
 					</div>

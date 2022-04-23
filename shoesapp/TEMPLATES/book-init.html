@@ -33,7 +33,7 @@
                             <form action="{% url 'book-init' product.id %}" method="POST">
 								{% csrf_token %}
                             <label for="">Address</label>
-                            <textarea name="address" class="form-control" placeholder="{{cid.address}}"  value="{{cid.address}}" id="" cols="30" rows="5" required></textarea>
+                            <textarea name="address" class="form-control" id="" cols="30" rows="5" required>{{cid.address}}</textarea>
                             <label for="">Payment Method</label><br>
                             <input type="radio" name="pay" value="COD" >
                             <label for="">COD </label><br>

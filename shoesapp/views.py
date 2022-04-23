@@ -224,7 +224,7 @@ def clearn_more(request,pk):
         cid = Client.objects.get(email=request.session['cemail'])
         return render(request,'learn-more.html',{'pro':product,'cid':cid})
     except:
-        return render(request,'learn-more.html',{'product' : product})
+        return render(request,'learn-more.html',{'pro':product})
 
 def book_init(request,pk):
     if request.method == 'POST':

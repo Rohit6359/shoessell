@@ -63,7 +63,11 @@
                   	<div class="row">
 	                  	<div class="col-sm-6 text-center">
 									<p class="addtocart"><button type="button" onclick='myfunction({{pro.id}})'  class="btn btn-primary btn-addtocart" style=" height: 50px;" value=""><i class="icon-shopping-cart"></i> Add to Cart</button></p>
+									{% if request.session.cemail %}
 									<p class="addtocart"><a href="{% url 'book-init' pro.id %}" class="btn btn-primary btn-addtocart">Buy Now</a></p>
+									{% else %}
+									<p class="addtocart"><a href="{% url 'client-clogin' %}" class="btn btn-primary btn-addtocart">Buy Now</a></p>
+									{% endif %}
 								</div>
 							</div>
 						</div>

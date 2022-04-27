@@ -114,7 +114,7 @@ def cart(request):
         dis=car-car*25/100
         return render(request,'cart.html',{'cart':cart,'car':car,'dis':dis})
     except:
-        return redirect('clogin')
+        return redirect('client-clogin')
 
 def deletecarts(request,pk):
     cart=Cart.objects.get(id=pk)
